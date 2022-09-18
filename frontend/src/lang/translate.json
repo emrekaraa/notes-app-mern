@@ -1,0 +1,16 @@
+{
+  "en": {
+    "translation": {
+      "notesApp": "Notes App",
+      "login": "login",
+      "register": "register"
+    }
+  },
+  "tr": {
+    "translation": {
+      "notesApp": "Not Uygulaması",
+      "login": "giriş yap",
+      "register": "kayıt ol"
+    }
+  }
+}

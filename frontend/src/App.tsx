@@ -1,20 +1,24 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-
+import Header from "./components/composite/Header/Header";
 import Home from "./pages/Home";
+import { getAllNotesCall } from "./redux/api/notesApiCall";
+import { useAppDispatch, useAppSelector } from "./redux/store";
 
 function App() {
+  const dispatch = useAppDispatch();
+  const notes = useAppSelector((state) => state.notes);
+
+  useEffect(() => {
+    dispatch(getAllNotesCall());
+  }, []);
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <div className="pages">
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
