@@ -3,14 +3,34 @@
     "translation": {
       "notesApp": "Notes App",
       "login": "login",
-      "register": "register"
+      "register": "register",
+      "logout": "logout",
+      "addNewNote": "Add New Note",
+      "addNote": "Add Note",
+      "noteTitle": "Note Title:",
+      "noteDescription": "Note Description:",
+      "pleaseEnterDescription": "Please enter a description . . .",
+      "pleaseEnterTitle": "Please enter a title . . .",
+      "createdDate": "Created date: ",
+      "success": "Success !",
+      "error": "Error !"
     }
   },
   "tr": {
     "translation": {
       "notesApp": "Not Uygulaması",
       "login": "giriş yap",
-      "register": "kayıt ol"
+      "register": "kayıt ol",
+      "logout": "çıkış yap",
+      "addNewNote": "Yeni Bir Not Ekle",
+      "addNote": "Not Ekle",
+      "noteTitle": "Not Başlık:",
+      "noteDescription": "Not Açıklama:",
+      "pleaseEnterDescription": "Lütfen bir açıklama girin . . .",
+      "pleaseEnterTitle": "Lütfen bir başlık girin . . .",
+      "createdDate": "Oluşturlma tarihi: ",
+      "success": "Başarılı !",
+      "error": "Hata !"
     }
   }
 }
