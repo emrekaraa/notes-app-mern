@@ -8,7 +8,7 @@ const Header = () => {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <header className="bg-headerBg">
+    <header className="bg-headerBg relative z-10">
       <div className="container flex justify-between py-7 lg:py-8 text-xl">
         {/* Title */}
         <div>

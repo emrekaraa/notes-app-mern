@@ -4,22 +4,13 @@ import { BACKEND_ROOT_URL } from "./api/constants";
 import { getAllNotesCall } from "./api/notesApiCall";
 import { RootState } from "./store";
 
-interface Note {
-  _id: string;
-  title: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface NotesState {
-  data: Note[];
+interface NotesResponse {
   loading: boolean;
-  error: string;
+  error: string | null;
+  data: any;
 }
-
-const initialState: NotesState = {
-  data: [],
+const initialState: NotesResponse = {
+  data: null,
   loading: false,
   error: "",
 };
@@ -33,7 +24,7 @@ const notesSlice = createSlice({
       state.loading = true;
       state.error = "";
     });
-    builder.addCase(getAllNotesCall.fulfilled, (state, action: PayloadAction<Note[]>) => {
+    builder.addCase(getAllNotesCall.fulfilled, (state, action: PayloadAction<NotesResponse>) => {
       state.data = action.payload;
       state.loading = false;
     });

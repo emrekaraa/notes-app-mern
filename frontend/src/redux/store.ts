@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from "react-redux";
-import type { TypedUseSelectorHook } from "react-redux";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
 import siteCongifReducer from "./siteConfigSlice";
 import notesReducer from "./notesSlice";

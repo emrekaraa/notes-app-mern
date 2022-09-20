@@ -3,6 +3,7 @@
     "translation": {
       "notesApp": "Notes App",
       "login": "login",
+      "loginUpper": "LOGIN",
       "register": "register",
       "logout": "logout",
       "addNewNote": "Add New Note",
@@ -13,13 +14,18 @@
       "pleaseEnterTitle": "Please enter a title . . .",
       "createdDate": "Created date: ",
       "success": "Success !",
-      "error": "Error !"
+      "error": "Error !",
+      "nameSurname": "Name & Surname",
+      "email": "Email",
+      "password": "Password",
+      "rePassword": "Re-Password"
     }
   },
   "tr": {
     "translation": {
       "notesApp": "Not Uygulaması",
       "login": "giriş yap",
+      "loginUpper": "GİRİŞ YAP",
       "register": "kayıt ol",
       "logout": "çıkış yap",
       "addNewNote": "Yeni Bir Not Ekle",
@@ -30,7 +36,11 @@
       "pleaseEnterTitle": "Lütfen bir başlık girin . . .",
       "createdDate": "Oluşturlma tarihi: ",
       "success": "Başarılı !",
-      "error": "Hata !"
+      "error": "Hata !",
+      "nameSurname": "İsim & Soyisim",
+      "email": "E-Posta",
+      "password": "Şifre",
+      "rePassword": "Şifre Tekrar"
     }
   }
 }
