@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { deleteNoteCall, getAllNotesCall } from "../../../redux/api/notesApiCall";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 interface IProps {
   title: string;
   description?: string;
   createdDate: string;
+  _id: string;
 }
-const NoteCard: React.FC<IProps> = ({ title = "", description = "", createdDate = "" }) => {
+const NoteCard: React.FC<IProps> = ({
+  title = "",
+  description = "",
+  createdDate = "",
+  _id = "",
+}) => {
   const { t, i18n } = useTranslation();
+
+  const dispatch = useAppDispatch();
+  const allNotes = useAppSelector((state) => state.notes);
+
+  const deleteNote = () => {
+    dispatch(deleteNoteCall(_id));
+  };
 
   return (
     <div className="bg-white p-3 flex flex-col justify-between rounded border-[0.5px] border-headerBg min-h-[140px]">
@@ -15,9 +30,19 @@ const NoteCard: React.FC<IProps> = ({ title = "", description = "", createdDate 
 
         <p className="text-gray-600 mt-2 mb-1">{description}</p>
       </div>
-      <p className="text-headerBg text-xs">
-        {t("createdDate")} {createdDate}
-      </p>
+      <div className="flex justify-between">
+        <p className="text-headerBg text-xs">
+          {t("createdDate")} <span className="text-gray-400">{createdDate}</span>
+        </p>
+
+        <div className="flex items-center gap-2.5">
+          <i className="fas fa-edit text-amber-300 hover:text-amber-400 cursor-pointer"></i>
+          <i
+            onClick={deleteNote}
+            className="fas fa-trash text-red-300 hover:text-red-400 cursor-pointer"
+          ></i>
+        </div>
+      </div>
     </div>
   );
 };

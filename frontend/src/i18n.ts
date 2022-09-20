@@ -4,7 +4,7 @@ import translate from "./lang/translate.json";
 
 i18n.use(initReactI18next).init({
   resources: translate,
-  lng: "en",
+  lng: "tr",
   interpolation: {
     escapeValue: false, // react already safes from xss
   },

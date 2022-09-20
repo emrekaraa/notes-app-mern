@@ -127,7 +127,7 @@ module.exports = router;
  */
 /**
  * @swagger
- * /api/notes{id}:
+ * /api/notes/{id}:
  *     delete:
  *      summary: Delete the note by id
  *      tags: [Notes]
@@ -150,7 +150,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /api/notes{id}:
+ * /api/notes/{id}:
  *     patch:
  *      summary: Update the note by id
  *      tags: [Notes]

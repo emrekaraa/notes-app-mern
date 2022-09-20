@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { addNewNoteCall } from "../../../redux/api/notesApiCall";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { MainButton, MainTextInput } from "../../ui";
 
 const AddNoteArea: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const dispatch = useAppDispatch();
+
+  const addNote = () => {
+    if (title === "" || description === "") {
+      return alert("Lütfen tüm alanları doldurunuz!");
+    }
+    try {
+      const data = {
+        title,
+        description,
+      };
+
+      dispatch(addNewNoteCall(data));
+      setTitle("");
+      setDescription("");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="mb-6">
@@ -12,16 +36,24 @@ const AddNoteArea: React.FC = () => {
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="flex-1">
           <p className="mb-2">{t("noteTitle")}</p>
-          <MainTextInput placeholder={t("pleaseEnterTitle")} />
+          <MainTextInput
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder={t("pleaseEnterTitle")}
+          />
         </div>
 
         <div className="flex-1">
           <p className="mb-2">{t("noteDescription")}</p>
-          <MainTextInput placeholder={t("pleaseEnterDescription")} />
+          <MainTextInput
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder={t("pleaseEnterDescription")}
+          />
         </div>
       </div>
-      <div className="mt-4">
-        <MainButton text={t("addNote")} />
+      <div className="mt-3.5">
+        <MainButton onClick={addNote} text={t("addNote")} />
       </div>
     </div>
   );

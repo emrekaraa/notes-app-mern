@@ -42,13 +42,15 @@ const getNoteById = async (req, res) => {
 };
 
 const createNote = async (req, res) => {
-  const { title, description } = req.body;
+  const {
+    data: { title, description },
+  } = req.body;
 
   try {
     const newNote = await NoteModel.create({ title, description });
     res.status(201).json({
       message: "New note created",
-      note: newNote,
+      newNote: newNote,
     });
   } catch (error) {
     res.status(400).json({

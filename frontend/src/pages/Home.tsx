@@ -3,7 +3,10 @@ import { useTranslation } from "react-i18next";
 import { AlertBox, NoteCard } from "../components/ui";
 import { AddNoteArea } from "../components/views";
 import { getAllNotesCall } from "../redux/api/notesApiCall";
+
+import { setLoading } from "../redux/siteConfigSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
+import { convertDateTimeFormat } from "../utils/methods";
 
 interface Note {
   _id: string;
@@ -20,10 +23,8 @@ const Home = () => {
   const allNotes = useAppSelector((state) => state.notes);
 
   useEffect(() => {
-    dispatch(getAllNotesCall());
+    dispatch(getAllNotesCall({ direction: "DESC" }));
   }, [dispatch]);
-
-  console.log(allNotes);
 
   return (
     <section className="container">
@@ -37,7 +38,8 @@ const Home = () => {
             key={note._id}
             title={note.title}
             description={note.description}
-            createdDate={note.createdAt}
+            createdDate={convertDateTimeFormat(note.createdAt)}
+            _id={note._id}
           />
         ))}
       </div>
