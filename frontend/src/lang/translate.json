@@ -18,7 +18,8 @@
       "nameSurname": "Name & Surname",
       "email": "Email",
       "password": "Password",
-      "rePassword": "Re-Password"
+      "rePassword": "Re-Password",
+      "loading": "Loading..."
     }
   },
   "tr": {
@@ -40,7 +41,8 @@
       "nameSurname": "İsim & Soyisim",
       "email": "E-Posta",
       "password": "Şifre",
-      "rePassword": "Şifre Tekrar"
+      "rePassword": "Şifre Tekrar",
+      "loading": "Yükleniyor..."
     }
   }
 }

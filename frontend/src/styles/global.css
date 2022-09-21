@@ -15,3 +15,62 @@ body {
   max-width: 1320px;
   margin: 0 auto;
 }
+
+.loadingModal div {
+  width: 270px;
+  height: 270px;
+}
+.loadingModal .loader,
+.loadingModal .loader2 {
+  top: -25px;
+  left: -25px;
+  position: absolute;
+  display: inline-block;
+  vertical-align: middle;
+  width: 320px;
+  height: 320px;
+  border-radius: 320px;
+}
+.loadingModal .loader::before,
+.loadingModal .loader2::before {
+  position: absolute;
+  content: "";
+  width: 320px;
+  height: 320px;
+  border-radius: 320px;
+  color: black;
+  box-shadow: inset -5px 0 0 5px currentColor;
+  clip: rect(0, 700px, 200px, 0);
+  animation: rotator 1s infinite linear;
+}
+
+.loadingModal .loader2 {
+  top: -35px;
+  left: -35px;
+  width: 340px;
+  height: 340px;
+  transform: rotate(90deg);
+}
+.loadingModal .loader2::before {
+  width: 340px;
+  height: 340px;
+}
+@keyframes rotator {
+  0% {
+    transform: rotate(-180deg);
+    box-shadow: inset -5px 0 0 5px currentColor;
+  }
+  50% {
+    transform: rotate(0deg);
+    box-shadow: inset -1px 0 0 1px currentColor;
+  }
+  100% {
+    transform: rotate(180deg);
+    box-shadow: inset -5px 0 0 5px currentColor;
+  }
+}
+@media (max-width: 768px) {
+  .loadingModal {
+    transform: scale(0.7);
+  }
+}

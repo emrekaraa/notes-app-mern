@@ -1,5 +1,7 @@
 const express = require("express");
+
 const router = express.Router();
+const NoteModel = require("../models/noteModel");
 const {
   createNote,
   getAllNotes,
@@ -7,8 +9,9 @@ const {
   deleteNote,
   updateNote,
 } = require("../controllers/noteController");
+const paginatedResults = require("../middlewares/paginate");
 
-router.get("/", getAllNotes);
+router.get("/", paginatedResults(NoteModel), getAllNotes);
 router.get("/:id", getNoteById);
 router.post("/", createNote);
 router.delete("/:id", deleteNote);
@@ -66,7 +69,20 @@ module.exports = router;
  *              enum: [ASC, DESC]
  *
  *          required: false
- *          description: Direction
+ *
+ *        - in: query
+ *          name: limit
+ *          schema:
+ *              type: number
+ *          required: true
+ *
+ *        - in: query
+ *          name: page
+ *          schema:
+ *              type: number
+ *          required: true
+ *
+ *
  *
  *      responses:
  *          200:

@@ -2,9 +2,12 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BACKEND_ROOT_URL } from "./constants";
 import { setLoading } from "../siteConfigSlice";
+import { setAllNotesFilterOptions } from "../notesSlice";
 
 interface NotesParams {
   direction?: "ASC" | "DESC";
+  page?: number;
+  limit?: number;
 }
 interface AddNewNoteData {
   title: string;
@@ -18,7 +21,7 @@ interface NotesResponse {
 
 export const getAllNotesCall = createAsyncThunk(
   "fetchAllNotes",
-  async (notesParams: NotesParams = { direction: "DESC" }, { dispatch, getState }) => {
+  async (notesParams: NotesParams, { dispatch, getState }: any) => {
     try {
       dispatch(setLoading(true));
       const response = await axios.get<NotesResponse>(`${BACKEND_ROOT_URL}/api/notes`, {
@@ -39,7 +42,7 @@ export const getAllNotesCall = createAsyncThunk(
 
 export const deleteNoteCall = createAsyncThunk(
   "deleteNote",
-  async (id: string, { dispatch, getState }) => {
+  async (id: string, { dispatch, getState }: any) => {
     try {
       dispatch(setLoading(true));
       const response = await axios.delete(`${BACKEND_ROOT_URL}/api/notes/${id}`, {
@@ -47,18 +50,20 @@ export const deleteNoteCall = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
+
+      const { getAllNotesFilterOptions } = await getState().notes;
+      await dispatch(getAllNotesCall(getAllNotesFilterOptions));
+
       return response.data;
     } catch (error) {
       throw error;
-    } finally {
-      dispatch(setLoading(false));
     }
   }
 );
 
 export const addNewNoteCall = createAsyncThunk(
   "addNewNote",
-  async (data: AddNewNoteData, { dispatch, getState }) => {
+  async (data: AddNewNoteData, { dispatch, getState }: any) => {
     try {
       dispatch(setLoading(true));
       const response = await axios.post(`${BACKEND_ROOT_URL}/api/notes`, {
@@ -67,12 +72,13 @@ export const addNewNoteCall = createAsyncThunk(
           "Content-Type": "application/json",
         },
       });
+      const { getAllNotesFilterOptions } = await getState().notes;
+
+      dispatch(setAllNotesFilterOptions({ ...getAllNotesFilterOptions, page: 1 }));
 
       return response.data;
     } catch (error) {
       throw error;
-    } finally {
-      dispatch(setLoading(false));
     }
   }
 );

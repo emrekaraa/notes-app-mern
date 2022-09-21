@@ -3,13 +3,7 @@ const mongoose = require("mongoose");
 
 const getAllNotes = async (req, res) => {
   try {
-    const notes = await NoteModel.find({}).sort({
-      createdAt: req.query.direction ? req.query.direction : "desc",
-    });
-    res.status(200).json({
-      message: "All notes",
-      notes,
-    });
+    res.status(200).json(res.paginatedResults);
   } catch (error) {
     res.status(400).json({
       error: error.message,
