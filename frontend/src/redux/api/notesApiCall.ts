@@ -3,6 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { BACKEND_ROOT_URL } from "./constants";
 import { setLoading } from "../siteConfigSlice";
 import { setAllNotesFilterOptions } from "../notesSlice";
+import { toast } from "react-toastify";
+import i18n from "../../i18n";
 
 interface NotesParams {
   direction?: "ASC" | "DESC";
@@ -53,6 +55,8 @@ export const deleteNoteCall = createAsyncThunk(
 
       const { getAllNotesFilterOptions } = await getState().notes;
       await dispatch(getAllNotesCall(getAllNotesFilterOptions));
+      const messageTranslate = i18n.t("noteDeletedSuccess");
+      toast.success(messageTranslate);
 
       return response.data;
     } catch (error) {
@@ -75,6 +79,8 @@ export const addNewNoteCall = createAsyncThunk(
       const { getAllNotesFilterOptions } = await getState().notes;
 
       dispatch(setAllNotesFilterOptions({ ...getAllNotesFilterOptions, page: 1 }));
+      const messageTranslate = i18n.t("noteCreatedSuccess");
+      toast.success(messageTranslate);
 
       return response.data;
     } catch (error) {

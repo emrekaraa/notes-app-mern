@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { addNewNoteCall } from "../../../redux/api/notesApiCall";
 import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { MainButton, MainTextInput } from "../../ui";
+import { toast } from "react-toastify";
 
 const AddNoteArea: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -13,7 +14,7 @@ const AddNoteArea: React.FC = () => {
 
   const addNote = () => {
     if (title === "" || description === "") {
-      return alert("Lütfen tüm alanları doldurunuz!");
+      return toast.error(t("pleaseAllFields"));
     }
     try {
       const data = {

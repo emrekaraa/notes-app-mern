@@ -1,10 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/composite/Header/Header";
-import { MainLoading } from "./components/ui";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { MainLoading } from "./components/ui";
 import { useAppSelector } from "./redux/store";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { loading } = useAppSelector((state) => state.siteConfig);
@@ -12,8 +13,15 @@ function App() {
   return (
     <BrowserRouter>
       <MainLoading fade={loading} />
-      <Header />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2500}
+        closeOnClick
+        draggable
+        pauseOnHover={false}
+      />
 
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

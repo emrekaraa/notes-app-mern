@@ -19,7 +19,10 @@
       "email": "Email",
       "password": "Password",
       "rePassword": "Re-Password",
-      "loading": "Loading..."
+      "loading": "Loading...",
+      "noteCreatedSuccess": "Note created successfully !",
+      "noteDeletedSuccess": "Note deleted successfully !",
+      "pleaseAllFields": "Please fill in all fields !"
     }
   },
   "tr": {
@@ -42,7 +45,10 @@
       "email": "E-Posta",
       "password": "Şifre",
       "rePassword": "Şifre Tekrar",
-      "loading": "Yükleniyor..."
+      "loading": "Yükleniyor...",
+      "noteCreatedSuccess": "Not başarıyla oluşturuldu !",
+      "noteDeletedSuccess": "Not başarıyla silindi !",
+      "pleaseAllFields": "Lütfen tüm alanları doldurun !"
     }
   }
 }
