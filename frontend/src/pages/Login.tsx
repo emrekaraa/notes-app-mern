@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { MainButton, MainTextInput } from "../components/ui";
 
@@ -12,12 +11,12 @@ const Login = () => {
 
         <div className="mb-3">
           <p>{t("email")}:</p>
-          <MainTextInput type="email" />
+          <MainTextInput placeholder={t("pleaseEnterEmail")} type="email" />
         </div>
 
         <div className="mb-3">
           <p>{t("password")}:</p>
-          <MainTextInput type="password" />
+          <MainTextInput placeholder={t("pleaseEnterPassword")} type="password" />
         </div>
 
         <div className="mt-5 ">

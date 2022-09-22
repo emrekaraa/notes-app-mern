@@ -22,7 +22,12 @@
       "loading": "Loading...",
       "noteCreatedSuccess": "Note created successfully !",
       "noteDeletedSuccess": "Note deleted successfully !",
-      "pleaseAllFields": "Please fill in all fields !"
+      "pleaseAllFields": "Please fill in all fields !",
+      "pleaseEnterNameAndSurname": "Enter name and surname",
+      "pleaseEnterEmail": "Enter a email",
+      "pleaseEnterPassword": "Enter password",
+      "pleaseEnterRePassword": "Enter re-password",
+      "profileImage": "profile image"
     }
   },
   "tr": {
@@ -48,7 +53,12 @@
       "loading": "Yükleniyor...",
       "noteCreatedSuccess": "Not başarıyla oluşturuldu !",
       "noteDeletedSuccess": "Not başarıyla silindi !",
-      "pleaseAllFields": "Lütfen tüm alanları doldurun !"
+      "pleaseAllFields": "Lütfen tüm alanları doldurun !",
+      "pleaseEnterNameAndSurname": "İsim ve soyisim giriniz",
+      "pleaseEnterEmail": "E-posta adresi giriniz",
+      "pleaseEnterPassword": "Şifre giriniz",
+      "pleaseEnterRePassword": "Şifreyi tekrar giriniz",
+      "profileImage": "profil resmi"
     }
   }
 }

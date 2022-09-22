@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { AlertBox, MainLoading, NoteCard } from "../components/ui";
+import { useEffect } from "react";
+import { NoteCard } from "../components/ui";
 import { AddNoteArea } from "../components/views";
 import { getAllNotesCall } from "../redux/api/notesApiCall";
 
-import { setLoading } from "../redux/siteConfigSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { convertDateTimeFormat } from "../utils/methods";
 import { NextIcon } from "../common/icons";
@@ -20,15 +18,7 @@ interface Note {
   updatedAt: string;
 }
 
-interface FilterOptions {
-  direction?: "ASC" | "DESC";
-  page?: number;
-  limit?: number;
-}
-
 const Home = () => {
-  const { t, i18n } = useTranslation();
-
   const dispatch = useAppDispatch();
   const { data, getAllNotesFilterOptions } = useAppSelector((state) => state.notes);
 
@@ -39,8 +29,6 @@ const Home = () => {
   return (
     <section className="container">
       <AddNoteArea />
-
-      {/* <AlertBox message="Not Başarıyla Eklendi!" type="success" /> */}
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
         {data?.data.map((note: Note) => (
