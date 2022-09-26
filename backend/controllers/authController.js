@@ -46,16 +46,25 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  if (!req.body.fullName || !req.body.email || !req.body.password) {
+  if (
+    !req.body.fullName ||
+    !req.body.email ||
+    !req.body.password ||
+    !req.body.rePassword
+  ) {
     return res
       .status(400)
       .json({ error: "Please send name, email and password" });
   }
 
-  if (req.body.password.length < 6) {
-    return res
-      .status(400)
-      .json({ error: "Password must be at least 6 characters" });
+  if (
+    req.body.password.length < 6 ||
+    req.body.rePassword.length < 6 ||
+    req.body.password !== req.body.rePassword
+  ) {
+    return res.status(400).json({
+      error: "Password must be at least 6 characters and equal rePassword",
+    });
   }
 
   try {
@@ -82,7 +91,28 @@ const register = async (req, res) => {
   }
 };
 
+const getMe = async (req, res) => {
+  const authToken = req?.headers?.authorization?.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET);
+    const user = await UserModel.findById(decodedToken._id);
+    if (!user) {
+      return res.status(400).json({ error: "User not found" });
+    }
+    res.status(200).json({
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      profileImage: user.profileImage,
+    });
+  } catch {
+    return res.status(401).json({ error: "Invalid token" });
+  }
+};
+
 module.exports = {
   login,
   register,
+  getMe,
 };

@@ -27,7 +27,15 @@
       "pleaseEnterEmail": "Enter a email",
       "pleaseEnterPassword": "Enter password",
       "pleaseEnterRePassword": "Enter re-password",
-      "profileImage": "profile image"
+      "profileImage": "profile image",
+      "registerSuccess": "Register success !",
+      "loginSuccess": "Login success !",
+      "registerError": "Register error ! Please try again !",
+      "loginError": "Login error ! Please try again !",
+      "passwordsNotMatch": "Passwords not match !",
+      "passwordMustBe6Char": "Password must be at least 6 characters !",
+      "invalidEmail": "Invalid email !",
+      "fillAllFields": "Please fill in all fields !"
     }
   },
   "tr": {
@@ -58,7 +66,15 @@
       "pleaseEnterEmail": "E-posta adresi giriniz",
       "pleaseEnterPassword": "Şifre giriniz",
       "pleaseEnterRePassword": "Şifreyi tekrar giriniz",
-      "profileImage": "profil resmi"
+      "profileImage": "profil resmi",
+      "registerSuccess": "Kayıt Başarılı !",
+      "loginSuccess": "Giriş Başarılı !",
+      "registerError": "Kayıt Başarısız! Lütfen tekrar deneyiniz !",
+      "loginError": "Giriş Başarısız! Lütfen tekrar deneyiniz !",
+      "passwordsNotMatch": "Şifreler eşleşmiyor!",
+      "passwordMustBe6Char": "Şifreniz en az 6 karakter olmalıdır!",
+      "invalidEmail": "Geçersiz e-posta adresi!",
+      "fillAllFields": "Lütfen tüm alanları doldurun !"
     }
   }
 }

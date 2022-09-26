@@ -3,6 +3,7 @@ const notesRouter = require("./routes/notes");
 const authRouter = require("./routes/auth");
 const swaggerRouter = require("./routes/swagger");
 const checkJwt = require("./middlewares/checkJwt");
+const cors = require("cors");
 require("dotenv").config();
 const mongoose = require("mongoose");
 
@@ -10,6 +11,7 @@ const app = express();
 
 //!Middlewares
 app.use(express.json());
+app.use(cors());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();

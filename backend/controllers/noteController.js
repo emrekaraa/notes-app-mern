@@ -36,9 +36,7 @@ const getNoteById = async (req, res) => {
 };
 
 const createNote = async (req, res) => {
-  const {
-    data: { title, description },
-  } = req.body;
+  const { title, description } = req.body;
 
   try {
     const newNote = await NoteModel.create({ title, description });

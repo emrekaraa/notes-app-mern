@@ -30,6 +30,7 @@ export const getAllNotesCall = createAsyncThunk(
         params: notesParams ? notesParams : {},
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${getState().user.authToken}`,
         },
       });
 
@@ -50,6 +51,7 @@ export const deleteNoteCall = createAsyncThunk(
       const response = await axios.delete(`${BACKEND_ROOT_URL}/api/notes/${id}`, {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${getState().user.authToken}`,
         },
       });
 
@@ -60,6 +62,8 @@ export const deleteNoteCall = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      dispatch(setLoading(false));
+
       throw error;
     }
   }
@@ -70,12 +74,19 @@ export const addNewNoteCall = createAsyncThunk(
   async (data: AddNewNoteData, { dispatch, getState }: any) => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.post(`${BACKEND_ROOT_URL}/api/notes`, {
-        data: data,
-        headers: {
-          "Content-Type": "application/json",
+      const response = await axios.post(
+        `${BACKEND_ROOT_URL}/api/notes`,
+        {
+          title: data.title,
+          description: data.description,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getState().user.authToken}`,
+          },
+        }
+      );
       const { getAllNotesFilterOptions } = await getState().notes;
 
       dispatch(setAllNotesFilterOptions({ ...getAllNotesFilterOptions, page: 1 }));
@@ -84,6 +95,7 @@ export const addNewNoteCall = createAsyncThunk(
 
       return response.data;
     } catch (error) {
+      dispatch(setLoading(false));
       throw error;
     }
   }

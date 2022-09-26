@@ -3,11 +3,13 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
 import siteCongifReducer from "./siteConfigSlice";
 import notesReducer from "./notesSlice";
+import userReducer from "./userSlice";
 
 export const store = configureStore({
   reducer: {
     siteConfig: siteCongifReducer,
     notes: notesReducer,
+    user: userReducer,
   },
 });
 

@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MainButton, MainTextInput } from "../components/ui";
 import UploadPhoto from "../common/images/1.png";
+import { useAppDispatch } from "../redux/store";
+import { registerCall } from "../redux/api/authApiCall";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { validateEmail } from "../utils/methods";
 
 const Register = () => {
   const { t, i18n } = useTranslation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   interface RegisterForm {
-    nameAndSurname: string;
+    fullName: string;
     email: string;
     password: string;
     rePassword: string;
@@ -15,7 +22,7 @@ const Register = () => {
   }
 
   const formInitialState = {
-    nameAndSurname: "",
+    fullName: "",
     email: "",
     password: "",
     rePassword: "",
@@ -37,10 +44,36 @@ const Register = () => {
     }
   };
 
-  console.log(registerForm);
+  const handleFormSubmit = (e: any) => {
+    e.preventDefault();
+    if (!registerForm.fullName) return toast.error(t("fillAllFields"));
+    if (!validateEmail(registerForm.email)) return toast.error(t("invalidEmail"));
+    if (registerForm.password.length < 6) return toast.error(t("passwordMustBe6Char"));
+    if (registerForm.password !== registerForm.rePassword)
+      return toast.error(t("passwordsNotMatch"));
+
+    dispatch(
+      registerCall({
+        fullName: registerForm.fullName,
+        email: registerForm.email,
+        password: registerForm.password,
+        rePassword: registerForm.rePassword,
+        profileImageFile: registerForm.profileImageFile,
+      })
+    ).then((res) => {
+      if (res.payload) {
+        setRegisterForm(formInitialState);
+        navigate("/login");
+      }
+    });
+  };
+
   return (
     <section className="container flex items-center justify-center py-10 min-h-[85vh]">
-      <form className="bg-headerBg/50 min-w-[300px] md:min-w-[500px] rounded p-4 min-h-[400px]">
+      <form
+        onSubmit={handleFormSubmit}
+        className="bg-headerBg/50 min-w-[300px] md:min-w-[500px] rounded p-4 min-h-[400px]"
+      >
         <h2 className="text-center text-3xl uppercase mb-4">{t("register")}</h2>
 
         <div className="relative p-1 mb-3 border-[2.5px] border-dashed rounded w-[120px] h-[140px] mx-auto overflow-hidden flex flex-col justify-between items-center">
@@ -65,8 +98,8 @@ const Register = () => {
           <p>{t("nameSurname")}:</p>
           <MainTextInput
             onChange={handleFormChange}
-            name="nameAndSurname"
-            value={registerForm.nameAndSurname}
+            name="fullName"
+            value={registerForm.fullName}
             placeholder={t("pleaseEnterNameAndSurname")}
             type="text"
           />
