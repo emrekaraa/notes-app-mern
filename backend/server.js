@@ -1,6 +1,8 @@
 const express = require("express");
 const notesRouter = require("./routes/notes");
+const authRouter = require("./routes/auth");
 const swaggerRouter = require("./routes/swagger");
+const checkJwt = require("./middlewares/checkJwt");
 require("dotenv").config();
 const mongoose = require("mongoose");
 
@@ -15,7 +17,8 @@ app.use((req, res, next) => {
 
 //!Routes
 app.use("/api/swagger", swaggerRouter);
-app.use("/api/notes", notesRouter);
+app.use("/api/notes", checkJwt, notesRouter);
+app.use("/api/auth", authRouter);
 
 //!Database & Server Connection
 mongoose
