@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store";
 import { MainButton } from "../../ui";
 import { logOut } from "../../../redux/userSlice";
 import Cookies from "js-cookie";
+import moment from "moment";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -76,6 +77,7 @@ const Header = () => {
             className="flex items-center justify-center lg:justify-start my-7 lg:my-0 gap-2 cursor-pointer lg:hover:text-gray-100"
             onClick={() => {
               i18n.changeLanguage(i18n.language === "en" ? "tr" : "en");
+              moment.locale(i18n.language === "en" ? "en" : "tr");
             }}
           >
             <div>

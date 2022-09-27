@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MainButton, MainTextInput } from "../components/ui";
 import UploadPhoto from "../common/images/1.png";
-import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useAppDispatch } from "../redux/store";
 import { registerCall } from "../redux/api/authApiCall";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { validateEmail } from "../utils/methods";
 
 const Register = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -80,10 +80,10 @@ const Register = () => {
         <div className="relative p-1 mb-3 border-[2.5px] border-dashed rounded w-[120px] h-[140px] mx-auto overflow-hidden flex flex-col justify-between items-center">
           {registerForm.profileImagePreview ? (
             <>
-              <img src={registerForm?.profileImagePreview} />
+              <img alt="profile preview" src={registerForm?.profileImagePreview} />
             </>
           ) : (
-            <img className="ml-3" src={UploadPhoto} />
+            <img alt="profile upload" className="ml-3" src={UploadPhoto} />
           )}
           <input
             onChange={handleFormChange}

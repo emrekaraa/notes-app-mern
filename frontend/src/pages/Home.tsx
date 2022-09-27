@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import { NoteCard } from "../components/ui";
 import { AddNoteArea } from "../components/views";
 import { getAllNotesCall } from "../redux/api/notesApiCall";
-
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { convertDateTimeFormat } from "../utils/methods";
 import { NextIcon } from "../common/icons";
 import PreviousIcon from "../common/icons/PrevIcon";
 import ReactPaginate from "react-paginate";
@@ -12,7 +10,6 @@ import { setAllNotesFilterOptions } from "../redux/notesSlice";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { getMeCall } from "../redux/api/authApiCall";
-import { setAuthToken, setUserInfo } from "../redux/userSlice";
 
 interface Note {
   _id: string;
@@ -61,7 +58,7 @@ const Home = () => {
                 key={note._id}
                 title={note.title}
                 description={note.description}
-                createdDate={convertDateTimeFormat(note.createdAt)}
+                createdDate={note.createdAt}
                 _id={note._id}
               />
             ))}

@@ -1,12 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import styles from "./loading.module.scss";
 
 interface IProps {
   fade?: boolean;
 }
 const MainLoading: React.FC<IProps> = ({ fade = false }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div

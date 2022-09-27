@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { deleteNoteCall, getAllNotesCall } from "../../../redux/api/notesApiCall";
-import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { deleteNoteCall } from "../../../redux/api/notesApiCall";
+import { useAppDispatch } from "../../../redux/store";
+import moment from "moment";
+import "moment/locale/tr";
+
 interface IProps {
   title: string;
   description?: string;
@@ -14,10 +17,9 @@ const NoteCard: React.FC<IProps> = ({
   createdDate = "",
   _id = "",
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
-  const allNotes = useAppSelector((state) => state.notes);
 
   const deleteNote = () => {
     dispatch(deleteNoteCall(_id));
@@ -32,7 +34,8 @@ const NoteCard: React.FC<IProps> = ({
       </div>
       <div className="flex justify-between">
         <p className="text-headerBg text-xs">
-          {t("createdDate")} <span className="text-gray-400">{createdDate}</span>
+          {t("createdDate")}{" "}
+          <span className="text-gray-400">{moment(new Date(createdDate)).fromNow()}</span>
         </p>
 
         <div className="flex items-center gap-2.5">
