@@ -5,7 +5,7 @@
       "login": "login",
       "loginUpper": "LOGIN",
       "register": "register",
-      "logout": "logout",
+      "logout": "log out",
       "addNewNote": "Add New Note",
       "addNote": "Add Note",
       "noteTitle": "Note Title:",
@@ -35,7 +35,8 @@
       "passwordsNotMatch": "Passwords not match !",
       "passwordMustBe6Char": "Password must be at least 6 characters !",
       "invalidEmail": "Invalid email !",
-      "fillAllFields": "Please fill in all fields !"
+      "fillAllFields": "Please fill in all fields !",
+      "alreadyExistError": "This email already exists !"
     }
   },
   "tr": {
@@ -74,7 +75,8 @@
       "passwordsNotMatch": "Şifreler eşleşmiyor!",
       "passwordMustBe6Char": "Şifreniz en az 6 karakter olmalıdır!",
       "invalidEmail": "Geçersiz e-posta adresi!",
-      "fillAllFields": "Lütfen tüm alanları doldurun !"
+      "fillAllFields": "Lütfen tüm alanları doldurun !",
+      "alreadyExistError": "Bu e-posta adresi zaten kayıtlı !"
     }
   }
 }

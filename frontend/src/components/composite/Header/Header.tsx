@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { TurkeyFlag, UsaFlag } from "../../../common/icons";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import { MainButton } from "../../ui";
+import { logOut } from "../../../redux/userSlice";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const { t, i18n } = useTranslation();
   const [isActive, setIsActive] = useState(false);
+  const { authToken, userInfo } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <header className="bg-headerBg relative z-10">
@@ -24,13 +31,44 @@ const Header = () => {
         >
           {/* Nav links */}
           <ul className="flex flex-col lg:flex-row items-center lg:items-start mt-7 lg:mt-0 lg:gap-5 gap-y-7 lg:mr-5">
-            <li onClick={() => setIsActive(false)} className="lg:hover:text-gray-100 ">
-              <Link to={"/login"}>{t("login")}</Link>
-            </li>
-            <li onClick={() => setIsActive(false)} className="lg:hover:text-gray-100">
-              {" "}
-              <Link to={"/register"}>{t("register")}</Link>
-            </li>
+            {authToken ? (
+              <div className="flex items-center justify-center text-[16px] gap-2">
+                <li className="cursor-default flex items-center gap-2">
+                  <img
+                    alt="user avatar"
+                    className="w-[30px] rounded-full"
+                    src={
+                      userInfo?.profileImage
+                        ? userInfo?.profileImage
+                        : "https://cdn-icons-png.flaticon.com/512/1077/1077114.png?w=360"
+                    }
+                  />
+                  <p className="">{userInfo.email}</p>
+                </li>
+                <li>
+                  <MainButton
+                    onClick={() => {
+                      dispatch(logOut());
+                      Cookies.remove("authToken");
+                      navigate("/login");
+                    }}
+                    className=" bg-red-500 rounded-[1000px] p-0"
+                    fontAwesomeIconClass="fa-solid fa-right-from-bracket"
+                  />
+                </li>
+              </div>
+            ) : (
+              <>
+                {" "}
+                <li onClick={() => setIsActive(false)} className="lg:hover:text-gray-100 ">
+                  <Link to={"/login"}>{t("login")}</Link>
+                </li>
+                <li onClick={() => setIsActive(false)} className="lg:hover:text-gray-100">
+                  {" "}
+                  <Link to={"/register"}>{t("register")}</Link>
+                </li>
+              </>
+            )}
           </ul>
 
           {/* Language Switcher */}

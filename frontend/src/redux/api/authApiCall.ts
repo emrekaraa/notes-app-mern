@@ -31,10 +31,14 @@ export const registerCall = createAsyncThunk(
       toast.success(messageTranslate);
 
       return response.data;
-    } catch (error: any) {
-      const messageTranslate = i18n.t("registerError");
-      toast.error(messageTranslate);
-      throw error;
+    } catch (err: any) {
+      const alreadyExistMessageTranslate = i18n.t("alreadyExistError");
+      const registerErrorMessageTranslate = i18n.t("registerError");
+
+      err.response.data.error === "User already exists"
+        ? toast.error(alreadyExistMessageTranslate)
+        : toast.error(registerErrorMessageTranslate);
+      throw err;
     } finally {
       dispatch(setLoading(false));
     }
@@ -46,6 +50,7 @@ export const loginCall = createAsyncThunk(
   async (args: any, { dispatch, getState }: any) => {
     try {
       dispatch(setLoading(true));
+
       const response = await axios.post(
         `${BACKEND_ROOT_URL}/api/auth/login`,
         {
@@ -76,11 +81,10 @@ export const loginCall = createAsyncThunk(
 
       return response.data;
     } catch (error: any) {
+      dispatch(setLoading(false));
       const messageTranslate = i18n.t("loginError");
       toast.error(messageTranslate);
       throw error;
-    } finally {
-      dispatch(setLoading(false));
     }
   }
 );
@@ -89,7 +93,6 @@ export const getMeCall = createAsyncThunk(
   "getMe",
   async (args: any, { dispatch, getState }: any) => {
     try {
-      dispatch(setLoading(true));
       const response = await axios.post(
         `${BACKEND_ROOT_URL}/api/auth/getMe`,
         {},
@@ -101,11 +104,22 @@ export const getMeCall = createAsyncThunk(
         }
       );
 
+      dispatch(setAuthToken(args.authToken));
+      dispatch(
+        setUserInfo({
+          id: response.data._id,
+          fullName: response.data.fullName,
+          email: response.data.email,
+          profileImage: response.data.profileImage,
+        })
+      );
+
       return response.data;
     } catch (error: any) {
+      dispatch(setAuthToken(""));
+
       throw error;
     } finally {
-      dispatch(setLoading(false));
     }
   }
 );

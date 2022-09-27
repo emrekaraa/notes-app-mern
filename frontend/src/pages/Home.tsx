@@ -9,10 +9,10 @@ import { NextIcon } from "../common/icons";
 import PreviousIcon from "../common/icons/PrevIcon";
 import ReactPaginate from "react-paginate";
 import { setAllNotesFilterOptions } from "../redux/notesSlice";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import { setAuthToken } from "../redux/userSlice";
+import Cookies from "js-cookie";
 import { getMeCall } from "../redux/api/authApiCall";
+import { setAuthToken, setUserInfo } from "../redux/userSlice";
 
 interface Note {
   _id: string;
@@ -29,23 +29,25 @@ const Home = () => {
   const { authToken } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    //TODO: logic düzgün çalışıyor fakat istekler 2 kere gidiyor ve her sayfa değiştiğinde getMe çalışıyor. Loading'ler de üst üste çalışıyor.
     const cookiesAuthToken = Cookies.get("authToken");
-    if (cookiesAuthToken) {
-      dispatch(getMeCall({ authToken: cookiesAuthToken })).then((res) => {
-        if (res.payload) {
-          dispatch(setAuthToken(cookiesAuthToken));
-          dispatch(getAllNotesCall(getAllNotesFilterOptions));
-        } else {
-          Cookies.remove("authToken");
-          dispatch(setAuthToken(""));
-          navigate("/login");
-        }
-      });
-    } else {
+
+    if (!cookiesAuthToken) {
       return navigate("/login");
     }
-  }, [dispatch, getAllNotesFilterOptions]);
+
+    dispatch(getMeCall({ authToken: cookiesAuthToken })).then((res) => {
+      if (!res.payload) {
+        Cookies.remove("authToken");
+        return navigate("/login");
+      }
+    });
+  }, [dispatch, navigate]);
+
+  useEffect(() => {
+    if (authToken) {
+      dispatch(getAllNotesCall(getAllNotesFilterOptions));
+    }
+  }, [dispatch, getAllNotesFilterOptions, authToken]);
 
   return (
     <>
