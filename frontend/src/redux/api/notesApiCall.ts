@@ -72,6 +72,38 @@ export const deleteNoteCall = createAsyncThunk(
   }
 );
 
+export const updateNoteCall = createAsyncThunk(
+  "updateNote",
+  async ({ id, title, description }: any, { dispatch, getState }: any) => {
+    try {
+      dispatch(setLoading(true));
+      const response = await axios.patch(
+        `${BACKEND_ROOT_URL}/api/notes/${id}`,
+        {
+          title,
+          description,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getState().user.authToken}`,
+          },
+        }
+      );
+
+      const { getAllNotesFilterOptions } = await getState().notes;
+      await dispatch(getAllNotesCall(getAllNotesFilterOptions));
+      const messageTranslate = i18n.t("noteUpdatedSuccess");
+      toast.success(messageTranslate);
+
+      return response.data;
+    } catch (error) {
+      dispatch(setLoading(false));
+      throw error;
+    }
+  }
+);
+
 export const addNewNoteCall = createAsyncThunk(
   "addNewNote",
   async (data: AddNewNoteData, { dispatch, getState }: any) => {

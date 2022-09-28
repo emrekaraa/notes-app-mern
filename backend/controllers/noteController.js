@@ -81,7 +81,6 @@ const updateNote = async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Note with id: " + req.params.id + "updated",
       updatedNote,
     });
   } catch (error) {
