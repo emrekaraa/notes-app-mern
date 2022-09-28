@@ -59,15 +59,7 @@ const NoteCard: React.FC<IProps> = ({
 
         <div className="flex items-center gap-2.5">
           {editable ? (
-            <div className="flex items-center gap-2">
-              <i
-                onClick={() => {
-                  setEditable(false);
-                  setNoteTitle(title);
-                  setNoteDescription(description);
-                }}
-                className="fa-solid fa-xmark text-yellow-400 hover:text-yellow-500 cursor-pointer"
-              />
+            <div className="flex items-center gap-2 mr-[2px]">
               <i
                 onClick={() => {
                   dispatch(
@@ -76,6 +68,14 @@ const NoteCard: React.FC<IProps> = ({
                   setEditable(false);
                 }}
                 className="fa fa-check-double text-green-400 hover:text-green-500 cursor-pointer"
+              />
+              <i
+                onClick={() => {
+                  setEditable(false);
+                  setNoteTitle(title);
+                  setNoteDescription(description);
+                }}
+                className="fa-solid fa-xmark text-yellow-400 hover:text-yellow-500 cursor-pointer"
               />
             </div>
           ) : (
