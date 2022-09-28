@@ -26,13 +26,16 @@ export const getAllNotesCall = createAsyncThunk(
   async (notesParams: NotesParams, { dispatch, getState }: any) => {
     try {
       dispatch(setLoading(true));
-      const response = await axios.get<NotesResponse>(`${BACKEND_ROOT_URL}/api/notes`, {
-        params: notesParams ? notesParams : {},
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getState().user.authToken}`,
-        },
-      });
+      const response = await axios.get<NotesResponse>(
+        `${BACKEND_ROOT_URL}/api/notes/${getState().user.userInfo.id}`,
+        {
+          params: notesParams ? notesParams : {},
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getState().user.authToken}`,
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -79,6 +82,7 @@ export const addNewNoteCall = createAsyncThunk(
         {
           title: data.title,
           description: data.description,
+          userId: getState().user.userInfo.id,
         },
         {
           headers: {

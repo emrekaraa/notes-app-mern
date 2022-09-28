@@ -4,11 +4,15 @@ function paginatedResults(model) {
     const page = req.query.page ? parseInt(req.query.page) : 1;
     const limit = req.query.limit ? parseInt(req.query.limit) : 10;
     const direction = req.query.direction ? req.query.direction : "asc";
+    const userId = req.params.id || req.userData._id;
 
     // calculating the starting and ending index
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const totalElementCount = await model.countDocuments().exec();
+    const totalElementCount = await model
+      .find({ userId })
+      .countDocuments()
+      .exec();
 
     const results = {};
 
@@ -31,7 +35,9 @@ function paginatedResults(model) {
 
     try {
       results.data = await model
-        .find({})
+        .find({
+          userId: userId,
+        })
         .sort({ createdAt: direction })
         .limit(limit)
         .skip(startIndex)

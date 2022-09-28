@@ -5,14 +5,12 @@ const NoteModel = require("../models/noteModel");
 const {
   createNote,
   getAllNotes,
-  getNoteById,
   deleteNote,
   updateNote,
 } = require("../controllers/noteController");
 const paginatedResults = require("../middlewares/paginate");
 
-router.get("/", paginatedResults(NoteModel), getAllNotes);
-router.get("/:id", getNoteById);
+router.get("/:id", paginatedResults(NoteModel), getAllNotes);
 router.post("/", createNote);
 router.delete("/:id", deleteNote);
 router.patch("/:id", updateNote);

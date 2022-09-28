@@ -11,35 +11,11 @@ const getAllNotes = async (req, res) => {
   }
 };
 
-const getNoteById = async (req, res) => {
-  try {
-    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      return res.status(404).json({ message: "Invalid ID" });
-    }
-
-    const note = await NoteModel.findById(req.params.id);
-    if (!note) {
-      return res.status(404).json({
-        message: "Note Not Found!",
-      });
-    }
-
-    res.status(200).json({
-      message: "Note with id: " + req.params.id,
-      note,
-    });
-  } catch (error) {
-    res.status(400).json({
-      error: error.message,
-    });
-  }
-};
-
 const createNote = async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, userId } = req.body;
 
   try {
-    const newNote = await NoteModel.create({ title, description });
+    const newNote = await NoteModel.create({ title, description, userId });
     res.status(201).json({
       message: "New note created",
       newNote: newNote,
@@ -118,7 +94,6 @@ const updateNote = async (req, res) => {
 module.exports = {
   createNote,
   getAllNotes,
-  getNoteById,
   deleteNote,
   updateNote,
 };
