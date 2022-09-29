@@ -37,7 +37,8 @@
       "passwordMustBe6Char": "Password must be at least 6 characters !",
       "invalidEmail": "Invalid email !",
       "fillAllFields": "Please fill in all fields !",
-      "alreadyExistError": "This email already exists !"
+      "alreadyExistError": "This email already exists !",
+      "pleaseLogin": "Please login to create and view your notes!"
     }
   },
   "tr": {
@@ -78,7 +79,8 @@
       "passwordMustBe6Char": "Şifreniz en az 6 karakter olmalıdır!",
       "invalidEmail": "Geçersiz e-posta adresi!",
       "fillAllFields": "Lütfen tüm alanları doldurun !",
-      "alreadyExistError": "Bu e-posta adresi zaten kayıtlı !"
+      "alreadyExistError": "Bu e-posta adresi zaten kayıtlı !",
+      "pleaseLogin": "Notlarınızı oluşturmak ve görüntülemek için lütfen giriş yapın!"
     }
   }
 }

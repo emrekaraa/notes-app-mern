@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { NoteCard } from "../components/ui";
+import { MainButton, NoteCard } from "../components/ui";
 import { AddNoteArea } from "../components/views";
 import { getAllNotesCall } from "../redux/api/notesApiCall";
 import { useAppDispatch, useAppSelector } from "../redux/store";
@@ -8,8 +8,7 @@ import PreviousIcon from "../common/icons/PrevIcon";
 import ReactPaginate from "react-paginate";
 import { setAllNotesFilterOptions } from "../redux/notesSlice";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { getMeCall } from "../redux/api/authApiCall";
+import { useTranslation } from "react-i18next";
 
 interface Note {
   _id: string;
@@ -22,33 +21,21 @@ interface Note {
 const Home = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const { data, getAllNotesFilterOptions } = useAppSelector((state) => state.notes);
   const { authToken } = useAppSelector((state) => state.user);
-
-  useEffect(() => {
-    const cookiesAuthToken = Cookies.get("authToken");
-
-    if (!cookiesAuthToken) {
-      return navigate("/login");
-    }
-
-    dispatch(getMeCall({ authToken: cookiesAuthToken })).then((res) => {
-      if (!res.payload) {
-        Cookies.remove("authToken");
-        return navigate("/login");
-      }
-    });
-  }, [dispatch, navigate]);
+  const { loading } = useAppSelector((state) => state.siteConfig);
 
   useEffect(() => {
     if (authToken) {
       dispatch(getAllNotesCall(getAllNotesFilterOptions));
     }
-  }, [dispatch, getAllNotesFilterOptions, authToken]);
+  }, [dispatch, getAllNotesFilterOptions]);
 
   return (
     <>
-      {authToken && (
+      {authToken ? (
         <section className="container">
           <AddNoteArea />
 
@@ -95,6 +82,17 @@ const Home = () => {
             </div>
           )}
         </section>
+      ) : (
+        <div className="flex flex-col text-center justify-center items-center mt-10">
+          <div className="max-w-md flex flex-col items-center justify-center gap-5">
+            <h1>{t("pleaseLogin")}</h1>
+            <MainButton
+              onClick={() => navigate("/login")}
+              text={t("login")}
+              className="max-w-xs bg-mainBlue hover:bg-mainBlue/90 capitalize"
+            />
+          </div>
+        </div>
       )}
     </>
   );

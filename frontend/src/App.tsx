@@ -2,16 +2,36 @@ import Header from "./components/composite/Header/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { MainLoading } from "./components/ui";
-import { useAppSelector } from "./redux/store";
+import { useAppDispatch, useAppSelector } from "./redux/store";
 import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
+import { getMeCall } from "./redux/api/authApiCall";
+import Cookies from "js-cookie";
 
 function App() {
   const { loading } = useAppSelector((state) => state.siteConfig);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const cookiesAuthToken = Cookies.get("authToken");
+
+    if (!cookiesAuthToken) {
+      return;
+    }
+
+    dispatch(getMeCall({ authToken: cookiesAuthToken })).then((res) => {
+      if (!res.payload) {
+        Cookies.remove("authToken");
+        return navigate("/login");
+      }
+    });
+  }, [dispatch, navigate]);
 
   return (
-    <BrowserRouter>
+    <>
       <MainLoading fade={loading} />
       <ToastContainer
         position="bottom-right"
@@ -27,7 +47,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
