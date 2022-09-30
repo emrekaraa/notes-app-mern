@@ -31,7 +31,7 @@ const Home = () => {
     if (authToken) {
       dispatch(getAllNotesCall(getAllNotesFilterOptions));
     }
-  }, [dispatch, getAllNotesFilterOptions]);
+  }, [dispatch, getAllNotesFilterOptions, authToken]);
 
   return (
     <>
