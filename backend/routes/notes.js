@@ -57,9 +57,15 @@ module.exports = router;
  * @swagger
  * /api/notes:
  *     get:
- *      summary: Returns the list of all the notes
+ *      summary: Returns user notes
  *      tags: [Notes]
  *      parameters:
+ *        - in: query
+ *          name: userId
+ *          schema:
+ *              type: string
+ *          required: true
+ *
  *        - in: query
  *          name: direction
  *          schema:

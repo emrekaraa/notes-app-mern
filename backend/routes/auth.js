@@ -8,10 +8,3 @@ router.post("/register", register);
 router.post("/getMe", getMe);
 
 module.exports = router;
-
-/**
- * @swagger
- * tags:
- *  name: Authantication
- *  description: The authantication managing API
- */
